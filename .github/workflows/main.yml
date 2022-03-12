@@ -6,14 +6,20 @@ on:
       - main
 
 jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: install npm
+      run: npm install
+    - name: build
+      run: npm run build
+
   deploy:
-    env:
-      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
     - name: Add Heroku remote
       run: 
-        git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+        git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
     - name: push to Heroku
       run: git push -f heroku main
