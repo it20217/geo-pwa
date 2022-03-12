@@ -24,7 +24,9 @@ jobs:
       - name: npm init
         run: npm init -y
 
-      - name: CI=false npm run build
+      - name: npm run build
+        env:
+          CI: false
         run: npm run build --if-present
 
   deploy:
