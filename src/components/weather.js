@@ -9,21 +9,27 @@ function Weather() {
   const apiKey= process.env.REACT_APP_API_KEY;
   const geoKey = "857121256518327842847x75356"
 
-  useEffect(function () {
+
+   async function getWeather(result) {
+    try {
+      let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${result.city}&units=metric&appid=${apiKey}`)
+      let responseJson = await response.json();
+      setData(responseJson);
+    } catch {
+      setError("Weather data is not available")
+    }
+
+ }
+
+  useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async function(pos) {
         try {
           fetch(`https://geocode.xyz/${pos.coords.latitude},${pos.coords.longitude}?json=1&auth=${geoKey}`)
           .then(response => response.json())
-          .then((result) => {
-            fetch(`/https://api.openweathermap.org/data/2.5/weather?q=${result.city}&units=metric&appid=${apiKey}`)
-              .then(response => response.json())
-              .then((weather) => {
-                setData(weather);
-            });
-          })
-        } catch (e) {
-            if(e.response.status === 404) {
+          .then(result => getWeather(result))
+        } catch (e) { 
+            if(e?.response?.status === 404) {
               setError(`Weather data for ${pos.coords.latitudeat},${pos.coords.longitude} could not be found`)
             } else {
               setError("The weather data could not be retrieved please try again later and make sure you are connected to the internet")
@@ -33,7 +39,7 @@ function Weather() {
       } else {
         setError("Location is not available");
       }
-  }, []);
+    }, []);
 
   
 
@@ -50,8 +56,8 @@ function Weather() {
         .then((weather) => {
           setData(weather);
     });
-    } catch(e) {
-      setError(e);
+    } catch {
+      setError(`Weather data for ${query} is not available`);
     }  
   }
 
@@ -74,13 +80,13 @@ function Weather() {
       </div> 
       
 
-      {data.main? (
+      {data?.main ? (
         <div className='response'>
           
           {data.name}
           <br/>
           <img
-            src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`}
+            src={`https://openweathermap.org/img/w/${data.weather[0].icon}.png`}
             alt="weather status icon"
           />
           <br/>
