@@ -1,0 +1,21 @@
+version: 2
+registries:
+  type: npm-github
+  url: https://npm.pkg.github.com
+  token: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
+updates:
+  - package-ecosystem: "npm dependencies"
+    directory: "/"
+    registries:
+      - npm-github
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 10
+    assignees: 
+      - it20217
+
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
