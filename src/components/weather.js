@@ -16,7 +16,7 @@ function Weather() {
           fetch(`https://geocode.xyz/${pos.coords.latitude},${pos.coords.longitude}?json=1&auth=${geoKey}`)
           .then(response => response.json())
           .then((result) => {
-            fetch(`https://crossorigin.me/http://api.openweathermap.org/data/2.5/weather?q=${result.city}&units=metric&appid=${apiKey}`)
+            fetch(`/https://api.openweathermap.org/data/2.5/weather?q=${result.city}&units=metric&appid=${apiKey}`)
               .then(response => response.json())
               .then((weather) => {
                 setData(weather);
@@ -45,7 +45,7 @@ function Weather() {
 
   async function handleSearch(e) {
     try {
-      fetch(`http://api.openweathermap.org/data/2.5/weather?q=${query}&units=metric&appid=${apiKey}`)
+      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${query}&units=metric&appid=${apiKey}`)
         .then(response => response.json())
         .then((weather) => {
           setData(weather);
