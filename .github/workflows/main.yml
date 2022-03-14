@@ -17,7 +17,7 @@ jobs:
           target: 'https://geo-pwa.herokuapp.com'
 
   build:
-  needs: zap_scan
+    needs: zap_scan
     runs-on: ubuntu-20.04
 
     steps:
