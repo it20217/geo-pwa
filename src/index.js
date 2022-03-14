@@ -21,7 +21,7 @@ ReactDOM.render(
 if (process.env.NODE_ENV === 'development') {
   serviceWorkerRegistration.unregister()
 } else {
-  serviceWorkerRegistartion.register();
+  serviceWorkerRegistration.register();
 }
 
 
