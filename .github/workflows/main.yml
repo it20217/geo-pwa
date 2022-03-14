@@ -12,12 +12,13 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
+      - uses: actions/checkout@v2
+      
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.6.1
         with:
           target: 'https://www.zaproxy.org'
           
-      - uses: actions/checkout@v2
 
       - name: install Node.js
         uses: actions/setup-node@v2
