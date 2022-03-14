@@ -28,9 +28,8 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
-    "dev": "react-scripts start",
-    "build": "next build",
-    "start": "CI=false && npm-run-script-build && cross-env NODE_ENV=production node server.js",
+    "start": "react-scripts start",
+    "build": "CI=false && react-scripts build && cross-env NODE_ENV=production node server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
