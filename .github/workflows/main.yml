@@ -6,6 +6,24 @@ on:
       - main
 
 jobs:
+
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Scan the webapplication
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: master
+      - name: ZAP Scan
+        uses: zaproxy/action-baseline@v0.6.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'owasp/zap2docker-stable'
+          target: 'https://www.zaproxy.org'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'
+
   build:
     runs-on: ubuntu-20.04
 
@@ -29,20 +47,6 @@ jobs:
           CI: false
         run: npm run build --if-present
 
-  zap_scan:
-    runs-on: ubuntu-latest
-    name: Scan ZAP website
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: master
-      - name: ZAP Scan
-        uses: zaproxy/action-baseline@v0.3.0
-        with:
-          token: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
-          target: 'https://www.zaproxy.org/'
-          cmd_options: '-a'
 
   deploy:
     needs: build
