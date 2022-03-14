@@ -29,7 +29,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI=false && react-scripts build && cross-env NODE_ENV=production node server.js",
+    "build": "CI=false && react-scripts build && node server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
