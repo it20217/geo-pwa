@@ -7,17 +7,17 @@ on:
 
 jobs:
 
-  # zap_scan:
-  #   runs-on: ubuntu-latest
-  #   name: Scan ZAP website
-  #   steps:
-  #     - name: ZAP Scan
-  #       uses: zaproxy/action-baseline@v0.6.1
-  #       with:
-  #         target: 'https://geo-pwa.herokuapp.com'
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Scan ZAP website
+    steps:
+      - name: ZAP Scan
+        uses: zaproxy/action-baseline@v0.6.1
+        with:
+          target: 'https://geo-pwa.herokuapp.com'
 
   build:
-    # needs: zap_scan
+    needs: zap_scan
     runs-on: ubuntu-20.04
 
     steps:
